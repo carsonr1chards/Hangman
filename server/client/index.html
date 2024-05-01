@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="app">
+            <div id="wrapper">
+
+                <nav>
+                    <h2>Hangman</h2>
+                </nav>
+
+                <template v-if="!fullGame && (playerId == 1 || playerId == 2)">
+                    <div class="message">
+                        <h2>Waiting for another player to join</h2>
+                        <img src="images/loading.gif" alt="loading" class="loadingIcon">
+                    </div>
+                </template>
+
+
+                <template v-else-if="fullGame && (playerId == 1 || playerId == 2)">
+                    <template v-if="!answer && playerId == 1">
+                        <div class="message">
+                            <h2>Player 1</h2>
+                            <p>Enter 1 word (no spaces) for player 2 to guess</p>
+                            <input type="password" name="answer" id="set-answer-input" v-model="proposedAnswer"></input>
+                            <button id="set-answer-button" @click="setAnswer">Submit</button>
+                        </div>
+                    </template>
+        
+                    <template v-if="playerId == 2 && !player2IsReady">
+                        <div class="message">
+                            <h2>Player 2</h2>
+                            <p>Press when ready.</p>
+                            <button id="player2-ready-button" @click="player2Ready">Ready</button>
+                        </div>
+                    </template>
+        
+                    <template v-if="!answer && player2IsReady && playerId == 2">
+                        <div class="message">
+                            <h2>Waiting for player 1</h2>
+                            <img src="images/loading.gif" alt="loading" class="loadingIcon">
+                        </div>
+                    </template>
+        
+                    <template v-if="answer && !player2IsReady && playerId == 1">
+                        <div class="message">
+                            <h2>Waiting for player 2</h2>
+                            <img src="images/loading.gif" alt="loading" class="loadingIcon">
+                        </div>
+                    </template>
+        
+                    <template v-if="activeGame">
+                        <div id="game-tile">
+
+                            <img v-if="guesses.length === 0" src="images/hangman0.png" class="hangman-img" alt="hangman">
+                            <img v-else-if="guesses.length === 1" src="images/hangman1.png" class="hangman-img" alt="hangman">
+                            <img v-else-if="guesses.length === 2" src="images/hangman2.png" class="hangman-img" alt="hangman">
+                            <img v-else-if="guesses.length === 3" src="images/hangman3.png" class="hangman-img" alt="hangman">
+                            <img v-else-if="guesses.length === 4" src="images/hangman4.png" class="hangman-img" alt="hangman">
+                            <img v-else-if="guesses.length === 5" src="images/hangman5.png" class="hangman-img" alt="hangman">
+                            <img v-else-if="guesses.length === 6" src="images/hangman6.png" class="hangman-img" alt="hangman">
+        
+                            <div id="incorrect-letters">
+                                <h2>Incorrect Letters</h2>
+                                <ul class="guessed-letters">
+                                    <li class="guessed-letter" v-for="guess in guesses">{{ guess }}</li>
+                                </ul>
+                            </div>
+        
+                            <div id="correct-letters">
+                                <ul class="correct-letters">
+                                    <li v-for="letter in correctLetters" :class="{'correct-letter': letter !== null, 'placeholder-letter': letter === null}">
+                                        {{ letter !== null ? letter : '' }}
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <template v-if="playerId == 2">
+                                <div id="game-inputs">
+                                    <input id="guess-letter-input" name="letter" v-model="guess" maxlength="1" pattern="[a-zA-Z]"></input>
+                                    <button @click="makeGuess">Make Guess</button>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                    <template v-else-if="gameOver">
+                        <div id="game-over-screen" class="message">
+                            <h2>Game over</h2>
+                            <p>Click to ready up for next game</p>
+                            <button @click="startOver">Ready</button>
+                        </div>
+                    </template>
+                </template>
+
+                <template v-else>
+                    <div class="message">
+                        <h2>Game is full, try again later.</h2>
+                    </div>
+                </template>
+
+            </div>
+
+        </div>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="app.js" ></script>
+    </body>
+</html>

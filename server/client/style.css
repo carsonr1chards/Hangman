@@ -1,0 +1,227 @@
+*{
+    font-family: "Farfetch Basis","Helvetica Neue",Arial,sans-serif;
+}
+
+.hangman-img{
+    height: 300px;
+    grid-row: 1;
+    grid-column: 1;
+    margin: 10px;
+}
+
+#correct-letters{
+    grid-column: 1 / 3;
+    grid-row: 2;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.correct-letters{
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+.correct-letter{
+    background-color: greenyellow;
+    display: flex;
+    height: 25px;
+    width: 25px;
+    border: 1px solid black;
+    margin: 5px;
+    justify-content: center;
+}
+
+.guessed-letters{
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    grid-row: 1;
+    grid-column: 2;
+    overflow: scroll;
+    height: 100%;
+    width: 40%;
+    background: white;
+    margin: 5px;
+    border: 2px solid;
+    border-radius: 5px;
+    text-align: center;
+    align-items: center;
+}
+
+.guessed-letter{
+    display: flex;
+    height: 25px;
+    width: 25px;
+}
+
+.placeholder-letter{
+    display: flex;
+    height: 25px;
+    width: 25px;
+    background-color: gray;
+    border: 1px solid black;
+    margin: 5px;
+}
+
+#wrapper{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 16%);
+    width: 100vw;
+    height: 100vh;
+    background-image: url('images/background.png');
+    background-size: contain;
+}
+
+nav{
+    height: 50%;
+    width: 100%;
+    grid-row: 1;
+    grid-column: 1/-1;
+    text-align: center;
+    background-color: rgb(88, 93, 97);
+    box-shadow: 2px 2px 2px 2px black;
+}
+
+.message{
+    grid-column: 2/6;
+    grid-row: 2/6;
+    margin: 25px;
+    text-align: center;
+    background-color: rgb(203, 209, 204);
+    border-radius: 5px;
+    border: 3px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow:  10px 5px 5px black;
+}
+
+.loadingIcon{
+    height: 100px;
+    width: auto;
+}
+
+#game-tile{
+    grid-column: 2/6;
+    grid-row: 2/6;
+    background-color: rgb(203, 209, 204);
+    border-radius: 5px;
+    border: 3px solid black;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    box-shadow:  10px 5px 5px black;
+}
+
+body{
+    margin: 0;
+}
+
+#game-inputs{
+    grid-row: 3;
+    grid-column: 1/3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#incorrect-letters{
+    grid-row: 1;
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    align-items: center;
+}
+
+#incorrect-letters h2{
+    text-align: center;
+}
+
+button {
+  background-color: #222;
+  border-radius: 4px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Farfetch Basis","Helvetica Neue",Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 10px;
+  max-width: none;
+  min-height: 44px;
+  min-width: 10px;
+  outline: none;
+  overflow: hidden;
+  padding: 9px 20px 8px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+button:hover,
+button:focus {
+  opacity: .75;
+}
+
+#guess-letter-input{
+    width: 10%;
+    text-align: center;
+}
+
+@media only screen and (max-width: 767px){
+    .hangman-img{
+        grid-column: 1 / 3;
+
+        max-width: 60%;
+        max-height: 30%;
+        display: block;
+        margin: auto;
+    }
+
+    #game-inputs{
+        grid-row: 4;
+    }
+
+    #correct-letters{
+        grid-row: 3;
+        align-items: center;
+    }
+
+    #incorrect-letters{
+        grid-row: 2;
+        grid-column: 1/3;
+    }
+
+    .guessed-letters{
+        flex-direction: row;
+        justify-content: center;
+        height: 20%;
+    }
+
+    .guessed-letter{
+        margin: 2px;
+    }
+
+    .message{
+        margin: 0;
+    }
+
+    #game-tile{
+        grid-template-rows: 34% 22% 22% 22%;
+    }
+}
